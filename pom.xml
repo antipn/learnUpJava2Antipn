@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <!--шапочка стандартная и запоминать ее не нужно -->
+    <!-- наши настройки при создании maven проекта-->
+    <groupId>ru.learnup.java2.antipn</groupId>
+    <artifactId>antipn</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+    <!-- блок зависимостей которые сборщик будет подгружать в проект из репозитория локального и глобального, если нет
+    в локальном
+    искать их можно на https://mvnrepository.com там есть код внедрения зависимости в проект maven
+    Подгруженные зависимости появятся в External libraries после Reload all maven projects
+    создаем package ru.learnup.java2.antipn
+    в нем класс Main c psvm
+    -->
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+            <!--
+            default test scope когда библиотека нужна а когда нет т.е. не включать в итоговый проект
+            complie только при компиляции
+            provided когда библиотека должна быть локально но в финальную сборку не должна быть добавлена
+            run test mvn test c ошибками не собралось бы
+            -->
+        </dependency>
+    </dependencies>
+
+    <!--Раздел правильной сборки проекта, без этого раздела Maven соберет нам наш проект но работать jar файлы не будут,
+     они будут падать с ошибкой no manifest attribute
+     -->
+    <!--
+     mvn compile -> скомпилировать код
+     mvn install -> скомпилировать код и положить проект в локальный репозиторий /Users/antipn/.m2
+     скрыте файлы "command + shift + ."
+     не работал maven в комндной строке
+     поставил чего через brew instal maven -> все заработало сами прописались пути
+     /Users/antipn/.m2/repository/ru/learnup/java2/antipn/antipn/1.0.0-SNAPSHOT
+     antipn-1.0.0-SNAPSHOT.jar
+     mvn clean -> почистить папку target
+     mvn clean install -> собрать польностью с нуля
+     mvn clean package -> собрать например новый с новой версией jar файл без clean положит рядом со старым
+    -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>ru.learnup.java2.antipn.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
